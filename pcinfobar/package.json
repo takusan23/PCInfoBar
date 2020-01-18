@@ -1,7 +1,7 @@
 {
 	"name": "pcinfobar",
 	"displayName": "PCInfoBar",
-	"description": "cpu useage show",
+	"description": "%extension.description%",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.41.0"
@@ -22,9 +22,19 @@
 		"commands": [
 			{
 				"command": "extension.pcinfo",
-				"title": "CPU RAM Usage / Battery Level Show"
+				"title": "%extension.command_description%"
 			}
-		]
+		],
+		"configuration":{
+			"title": "%extension.configuration%",
+			"properties": {
+				"pcinfobar.interval":{
+					"type":"number",
+					"default":1000,
+					"description": "%extension.settings.interval%"
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
@@ -48,5 +58,5 @@
 		"node-os-utils": "^1.2.2",
 		"systeminformation": "^4.19.1"
 	},
-	"icon": "icon.png"
+	"icon": "https://raw.githubusercontent.com/takusan23/PCInfoBar/master/pcinfobar/icon.png"
 }

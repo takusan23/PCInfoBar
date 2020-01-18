@@ -1,0 +1,7 @@
+{
+    "extension.settings.interval": "更新周期を設定。ミリ秒で指定してください。（一秒は1000ミリ秒です。）",
+    "extension.configuration": "PCInfoBarの設定",
+    "extension.settings.interval_title": "更新周期",
+    "extension.command_description": "CPU、RAM、電池残量を表示する。（PCInfoBar起動）",
+    "extension.description": "CPU、RAM、電池残量をステータスバーに表示します。"
+}

@@ -1,0 +1,7 @@
+{
+    "extension.settings.interval": "Set the update cycle. Specify in milliseconds. (One second is 1000 milliseconds.)",
+    "extension.configuration": "PCInfoBar Configuration",
+    "extension.settings.interval_title": "Update Cycle",
+    "extension.command_description": "Displays CPU, RAM, and battery level. (Start PCInfoBar)",
+    "extension.description": "Displays the CPU, RAM, and battery level on the status bar."
+}

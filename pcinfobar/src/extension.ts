@@ -18,8 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// 起動コマンド
 	const command = "extension.pcinfo";
+	// ユーザー設定
 	// 更新周期
-	const interval = 1000;
+	const interval = Number(vscode.workspace.getConfiguration('pcinfobar').get('interval'));
 
 
 	let disposable = vscode.commands.registerCommand(command, () => {
@@ -33,6 +34,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let cpuName = '';
 	let ramUsage = '';
 	let ramTotal = '';
+	let isCharging = false;
 
 	// ステータスバー追加
 	// CPU 使用率
@@ -42,35 +44,35 @@ export function activate(context: vscode.ExtensionContext) {
 	setInterval(() => {
 		systemInfomation.cpu().then((data: any) => {
 			cpuName = data.brand;
-		});		
+		});
 		systemInfomation.cpuCurrentspeed().then((speed: any) => {
 			clockSpeed = speed.avg;
-		});	
+		});
 		osu.cpu.usage().then((cpuPercentage: any) => {
 			cpuUsage = cpuPercentage;
 		});
-	}, interval);
 
-	// RAM
-	setInterval(() => {
+		// RAM
 		systemInfomation.mem().then((ram: any) => {
 			ramUsage = (Number(ram.used) / 1024 / 1024 / 1024).toFixed(2);
 			ramTotal = (Number(ram.total) / 1024 / 1024 / 1024).toFixed(2);
 		});
-	}, interval);
 
-	// Battery
-	setInterval(() => {
+		// Battery
 		systemInfomation.battery().then((battery: any) => {
 			batteryLevel = battery.percent;
+			isCharging = battery.ischarging;				
 		});
-	}, interval);
 
-	// 表示
-	setInterval(() => {
-		statusBar.text = `$(dashboard) ${clockSpeed} GHz $(pulse) ${cpuUsage} % $(package) ${ramUsage} GB / ${ramTotal} GB $(plug) ${batteryLevel} %`;
+		// 表示
+		let plugIcon = 'plug';
+		if(isCharging){
+			plugIcon = 'plug~spin';
+		}
+		statusBar.text = `$(dashboard) ${clockSpeed} GHz $(pulse) ${cpuUsage} % $(package) ${ramUsage} GB / ${ramTotal} GB $(${plugIcon}) ${batteryLevel} %`;
 		statusBar.tooltip = 'CPU平均速度 / CPU使用率 / メモリ使用量 (メモリ搭載量) / 電池残量';
 		statusBar.show();
+
 	}, interval);
 
 
